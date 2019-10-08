@@ -1,4 +1,5 @@
 package com.company;
+import java.util.LinkedList;
 
 public class BinarySearchTree {
     private BinarySearchTreeNode root;
@@ -28,12 +29,13 @@ public class BinarySearchTree {
      * @return New root of the subtree.
      */
     private BinarySearchTreeNode privateRemove(int k, BinarySearchTreeNode t) {
+        // return null if subtree is null
         if (t == null)
             return null;
         if (k < t.key)
             t.left = privateRemove(k, t.left);
         else if (k > t.key) {
-            t.right = privateRemove(k, t.right)
+            t.right = privateRemove(k, t.right);
         }
         else if (t.left != null && t.right != null) {
             t.key = findMin(t.right).key;
@@ -75,13 +77,49 @@ public class BinarySearchTree {
         root = privateInsert(k, root);
     }
 
+    /**
+     * Prints the tree from the children to the parent.
+     */
     public void printTree() {
+		System.out.println(postOrderPrint(root));
     }
 
+    /**
+     * Find the sum of all the positive keys in the tree.
+     * @return The sum of the positive keys in the tree.
+     */
+    public int positiveKeySum() {
+        return 0;
+    }
+
+    /**
+     * Deletes the maximum value in the tree.
+     */
+    public void deleteMax() {
+        if (root == null)
+            return;
+        BinarySearchTreeNode current = root;
+        while (current.right != null)
+            current = current.right;
+        remove(current.key);
+    }
+
+    /**
+     * Private method to create a list of values from the tree, in postorder.
+     * @param treeNode Subtree to be traversed.
+     * @return A LinkedList containing all the values in the tree, in postorder.
+     */
+    private String postOrderPrint(BinarySearchTreeNode treeNode) {
+    	String out = "";
+        if (treeNode == null) {
+            return "";
+        }
+        out += postOrderPrint(treeNode.left) + " " + treeNode.key;
+        out += postOrderPrint(treeNode.right) + " " + treeNode.key ;
 
 
-
-
+		return out;
+    }
     class BinarySearchTreeNode {
         int key;
         BinarySearchTreeNode left;
