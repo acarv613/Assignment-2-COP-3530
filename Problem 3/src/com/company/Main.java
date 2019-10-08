@@ -31,7 +31,7 @@ public class Main {
                 outStack.push(tmp);
             else {
                 // while the first value of the sorted stack is greater than the incoming value
-                while (outStack.peek() > tmp) {
+                while (!outStack.isEmpty() && outStack.peek() < tmp) {
                     // pop the sorted stack and push it onto an auxiliary stack
                     auxStack.push(outStack.pop());
                 }
