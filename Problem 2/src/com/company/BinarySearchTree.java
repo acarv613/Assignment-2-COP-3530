@@ -11,14 +11,18 @@ public class BinarySearchTree {
      * @return New root of the subtree.
      */
     private BinarySearchTreeNode privateInsert(int k, BinarySearchTreeNode t) {
+        // if node is null, place new node there
         if(t == null) {
             return new BinarySearchTreeNode(k);
         }
-        if(k < t.key)
+        // if key to insert is less than current node, go left
+        else if(k < t.key)
             t.left = privateInsert(k, t.left);
+        // if key to insert is greater than current node, go right
         else if (k > t.key)
             t.right = privateInsert(k, t.right);
         else;
+        // return subtree
         return t;
     }
 
@@ -81,7 +85,7 @@ public class BinarySearchTree {
      * Prints the tree from the children to the parent.
      */
     public void printTree() {
-		System.out.println(postOrderPrint(root));
+		postOrderPrint(root);
     }
 
     /**
@@ -109,16 +113,15 @@ public class BinarySearchTree {
      * @param treeNode Subtree to be traversed.
      * @return A LinkedList containing all the values in the tree, in postorder.
      */
-    private String postOrderPrint(BinarySearchTreeNode treeNode) {
-    	String out = "";
-        if (treeNode == null) {
-            return "";
-        }
-        out += postOrderPrint(treeNode.left) + " " + treeNode.key;
-        out += postOrderPrint(treeNode.right) + " " + treeNode.key ;
+    private void postOrderPrint(BinarySearchTreeNode treeNode) {
+    	if (treeNode == null)
+    	    return;
 
+    	postOrderPrint(treeNode.left);
+    	postOrderPrint(treeNode.right);
 
-		return out;
+    	System.out.print(treeNode.key + " ");
+
     }
     class BinarySearchTreeNode {
         int key;
